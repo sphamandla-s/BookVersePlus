@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-verse-plus-auth-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-verse-plus-auth
+  template:
+    metadata:
+      labels:
+        app: book-verse-plus-auth
+    spec:
+      containers:
+        - name: auth
+          image: gcr.io/book-verse-plus/auth
+
+

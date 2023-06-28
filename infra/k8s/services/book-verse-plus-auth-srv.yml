@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-verse-plus-auth-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: book-verse-plus-auth
+  ports:
+    - name: book-verse-plus-auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
