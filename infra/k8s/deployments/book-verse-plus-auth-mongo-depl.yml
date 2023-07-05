@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-verse-plus-auth-mongo-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-verse-plus-auth-mongo
+  template:
+    metadata:
+      labels:
+        app: book-verse-plus-auth-mongo
+    spec:
+      containers:
+        - name: book-verse-plus-auth-mongo
+          image: mongo
+          
