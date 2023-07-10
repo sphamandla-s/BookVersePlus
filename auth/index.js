@@ -3,11 +3,21 @@ const app = express();
 const pJson = require('./package.json');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cookiesSession = require('cookie-session');
+const dotenv = require('dotenv');
 
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json());
+dotenv.config()
+app.set('trust proxy', true);
+app.use(
+    cookiesSession({
+        signed: false,
+        secure: true
+    })
+);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());;
 
 
 

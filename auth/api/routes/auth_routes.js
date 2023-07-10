@@ -1,67 +1,19 @@
 const jwt = require("jsonwebtoken");
-const passport = require('passport')
-const localStrategy = require('passport-local').Strategy;
-const { body, validationResult } = require('express-validator');
-const User = require('../models/user_model')
+const controllers = require('../controllers/auth_controllers')
+
+
+
 module.exports = function (webserver) {
 
-
-
-    webserver.route('/api/v1/users/login').get((req, res) => {
-        res.send("Login")
-
-    });
-
-
+    //login route
+    webserver.route('/api/v1/users/login').post(controllers.login)
 
     //Signup route
-    webserver.route('/api/v1/users/signup').post([
-        body('email').isEmail().withMessage('Email must be valid'),
-        body('password')
-            .trim()
-            .isLength({ min: 6 })
-            .withMessage('Password must be at least 6 characters long')
-    ], async (req, res) => {
-
-
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            return res.status(400).send(errors.array())
-        }
-
-        const { email, password } = req.body;
-        const existing_user = await User.find({ email })
-        console.log(existing_user)
-        if (existing_user.length === 0) {
-            return res.send("Email already in use")
-        }
-
-        const newUser = new User({
-            email,
-            password
-        })
-
-        await newUser.save()
-        res.send(newUser)
-    })
+    webserver.route('/api/v1/users/signup').post(controllers.signup)
 
     //Logout route
-    webserver.route('/api/v1/users/logout').get((req, res) => {
-        res.send('Logout')
-    })
+    webserver.route('/api/v1/users/logout').get(controllers.logout)
 
     //current-user
-    webserver.route('/api/v1/users/current-user').get(async (req, res) => {
-        const token = re.cookies;
-
-        // // Check if the token exists
-        // if (!token) {
-        //     return res.status(401).send('Unauthorized');
-        // }
-
-        console.log(token)
-
-        res.json({})
-    })
+    webserver.route('/api/v1/users/current-user').get(controllers.current_user)
 };
