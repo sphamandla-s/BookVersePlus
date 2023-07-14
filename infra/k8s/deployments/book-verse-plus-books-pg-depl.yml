@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-verse-plus-books-postgres-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-verse-plus-books-postgres
+  template:
+    metadata:
+      labels:
+        app: book-verse-plus-books-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: Siphamandla
+            - name: POSTGRES_PASSWORD
+              value: book-verse-plus-pg
+            - name: POSTGRES_DB
+              value: book_verse_plus_books

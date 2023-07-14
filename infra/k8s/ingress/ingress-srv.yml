@@ -10,10 +10,17 @@ spec:
     - host: book-verse-plus.dev
       http:
         paths:
-          - pathType: Prefix
-            path: "/?(.*)"
+          - path: /auth
+            pathType: Prefix
             backend:
               service:
                 name: book-verse-plus-auth-srv
+                port:
+                  number: 3000
+          - path: /books/api/v1/book/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: book-verse-plus-books-srv
                 port:
                   number: 3000

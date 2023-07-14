@@ -16,6 +16,14 @@ build:
         manual:
           - dest: .
             src: "**/*.js"
+    - image: gcr.io/book-verse-plus/books
+      context: books
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "**/*.js"
 manifests:
   rawYaml:
     - infra/k8s/services/*
